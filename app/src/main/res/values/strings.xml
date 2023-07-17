@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Messenger App</string>
+    <string name="sign_up_btn_txt">SIGN UP</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="not_registered">Not Registered?</string>
+    <string name="enter_your_nickname">Enter your nickname</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="what_i_do">What I do</string>
+    <string name="login_screen_batman_icon">login screen batman icon</string>
 </resources>
