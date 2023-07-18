@@ -30,6 +30,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nickNameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -49,6 +50,7 @@
         app:layout_constraintTop_toBottomOf="@+id/nickNameTextField">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -69,6 +71,7 @@
         tools:layout_editor_absoluteX="32dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/occupationEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -78,7 +81,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/signInButton"
+        android:id="@+id/signUpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/small_space"
