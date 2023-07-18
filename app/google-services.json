@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "198131683930",
+    "project_id": "messenger-app-f1692",
+    "storage_bucket": "messenger-app-f1692.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198131683930:android:8c9af93e7bcd27a44e7e63",
+        "android_client_info": {
+          "package_name": "ge.lpaichadze.messengerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "198131683930-levpqiuog53c5oev82sf6qomnie9qkeo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUPf0L34FWK4qAOkO5UvLCKaNv7x5gxFo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "198131683930-levpqiuog53c5oev82sf6qomnie9qkeo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
