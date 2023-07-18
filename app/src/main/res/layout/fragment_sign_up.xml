@@ -12,10 +12,10 @@
         android:layout_height="@dimen/login_icon_size"
         android:layout_marginTop="@dimen/medium_space"
         android:contentDescription="@string/login_screen_batman_icon"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="fitCenter"
         app:srcCompat="@drawable/avatar_image_placeholder" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -75,7 +75,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:inputType="textPassword"
             android:textSize="@dimen/large_text" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -91,5 +90,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordTextField"
         app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/errorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_space"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/careerTextField" />
+
+    <ProgressBar
+        android:id="@+id/signUpProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/signUpButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/errorText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

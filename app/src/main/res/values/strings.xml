@@ -1,14 +1,16 @@
 <resources>
-  <string name="app_name">Messenger App</string>
-  <string name="sign_up_btn_txt">SIGN UP</string>
-  <string name="sign_up">SIGN UP</string>
-  <string name="not_registered">Not Registered?</string>
-  <string name="enter_your_nickname">Enter your nickname</string>
-  <string name="enter_your_password">Enter your password</string>
-  <string name="sign_in">SIGN IN</string>
-  <string name="what_i_do">What I do</string>
-  <string name="login_screen_batman_icon">login screen batman icon</string>
-  <string name="nickname_field_must_be_filled">Nickname must be entered</string>
-  <string name="password_field_must_be_filled">Password must be entered</string>
-  <string name="authentication_failed">Authentication Failed</string>
+    <string name="app_name">Messenger App</string>
+    <string name="sign_up_btn_txt">SIGN UP</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="not_registered">Not Registered?</string>
+    <string name="enter_your_nickname">Enter your nickname</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="what_i_do">What I do</string>
+    <string name="login_screen_batman_icon">login screen batman icon</string>
+    <string name="nickname_field_must_be_filled">Nickname must be entered</string>
+    <string name="password_field_must_be_filled">Password must be entered</string>
+    <string name="authentication_failed">Authentication Failed</string>
+    <string name="nickname_chars_invalid">NickName must only contain alphanumeric characters and spaces</string>
+    <string name="signup_failed">Sign Up Failed</string>
 </resources>

@@ -1,20 +1,18 @@
 package ge.lpaichadze.messengerapp
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import ge.lpaichadze.messengerapp.databinding.FragmentSignInBinding
+import ge.lpaichadze.messengerapp.utils.toEmail
 
-class SignInFragment : Fragment() {
+class SignInFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSignInBinding
 
@@ -25,6 +23,7 @@ class SignInFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSignInBinding.inflate(inflater, container, false)
+        this.setProgressBar(progressBar = binding.progressBar)
         auth = Firebase.auth
 
 
@@ -66,7 +65,8 @@ class SignInFragment : Fragment() {
         val activity = requireActivity()
 
         showProgressBar()
-        auth.signInWithEmailAndPassword(nickName, password)
+
+        auth.signInWithEmailAndPassword(nickName.toEmail(), password)
             .addOnSuccessListener(activity) {
                 startActivity(Intent(activity, MessagingActivity::class.java))
                 activity.finish()
@@ -85,19 +85,5 @@ class SignInFragment : Fragment() {
                 hideProgressBar()
             }
 
-    }
-
-    private fun showProgressBar() {
-        binding.progressBar.visibility = View.VISIBLE
-    }
-
-    private fun hideProgressBar() {
-        binding.progressBar.visibility = View.GONE
-    }
-
-    private fun hideKeyboard(view: View) {
-        val imm =
-            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

@@ -3,6 +3,7 @@ package ge.lpaichadze.messengerapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -13,6 +14,7 @@ class MainActivity : AppCompatActivity() {
 
         val authService = Firebase.auth
 
+        val curUser = authService.currentUser
         if (authService.currentUser == null) {
             startActivity(Intent(this, LoginActivity::class.java))
         } else {
