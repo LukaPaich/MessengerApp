@@ -13,4 +13,5 @@
     <string name="authentication_failed">Authentication Failed</string>
     <string name="nickname_chars_invalid">NickName must only contain alphanumeric characters and spaces</string>
     <string name="signup_failed">Sign Up Failed</string>
+    <string name="password_must_be_atleast_six_long">Password must be atleast six letters long</string>
 </resources>

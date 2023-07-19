@@ -1,11 +1,13 @@
-package ge.lpaichadze.messengerapp
+package ge.lpaichadze.messengerapp.presentation
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import ge.lpaichadze.messengerapp.presentation.entry.LoginActivity
+import ge.lpaichadze.messengerapp.presentation.messaging.MessagingActivity
+import ge.lpaichadze.messengerapp.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

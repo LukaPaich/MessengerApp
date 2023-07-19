@@ -1,4 +1,4 @@
-package ge.lpaichadze.messengerapp
+package ge.lpaichadze.messengerapp.presentation
 
 import android.content.Context
 import android.view.View

@@ -1,22 +1,24 @@
-package ge.lpaichadze.messengerapp
+package ge.lpaichadze.messengerapp.presentation.entry.signin
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import ge.lpaichadze.messengerapp.R
 import ge.lpaichadze.messengerapp.databinding.FragmentSignInBinding
-import ge.lpaichadze.messengerapp.utils.toEmail
+import ge.lpaichadze.messengerapp.presentation.BaseFragment
+import ge.lpaichadze.messengerapp.presentation.messaging.MessagingActivity
 
 class SignInFragment : BaseFragment() {
 
-    private lateinit var binding: FragmentSignInBinding
+    private val viewModel: SignInViewModel by viewModels {
+        SignInViewModel.getViewModelFactory()
+    }
 
-    private lateinit var auth: FirebaseAuth
+    private lateinit var binding: FragmentSignInBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,8 +26,22 @@ class SignInFragment : BaseFragment() {
     ): View {
         binding = FragmentSignInBinding.inflate(inflater, container, false)
         this.setProgressBar(progressBar = binding.progressBar)
-        auth = Firebase.auth
 
+        viewModel.liveCurrentUserData.observe(this.viewLifecycleOwner) {
+            if (it != null) {
+                hideProgressBar()
+                startActivity(Intent(activity, MessagingActivity::class.java))
+                requireActivity().finish()
+            }
+        }
+
+        viewModel.liveErrorData.observe(this.viewLifecycleOwner) {
+            if (it != null) {
+                hideProgressBar()
+                binding.errorText.visibility = View.VISIBLE
+                binding.errorText.text = it
+            }
+        }
 
         with(binding) {
             signInButton.setOnClickListener {
@@ -62,28 +78,7 @@ class SignInFragment : BaseFragment() {
             return
         }
 
-        val activity = requireActivity()
-
         showProgressBar()
-
-        auth.signInWithEmailAndPassword(nickName.toEmail(), password)
-            .addOnSuccessListener(activity) {
-                startActivity(Intent(activity, MessagingActivity::class.java))
-                activity.finish()
-            }
-            .addOnFailureListener(activity) {
-                binding.errorText.visibility = View.VISIBLE
-                val errorMessage = it.localizedMessage
-
-                if (errorMessage != null) {
-                    binding.errorText.text = errorMessage
-                } else {
-                    binding.errorText.text = getString(R.string.authentication_failed)
-                }
-            }
-            .addOnCompleteListener {
-                hideProgressBar()
-            }
-
+        viewModel.attemptSignIn(nickName, password)
     }
 }
