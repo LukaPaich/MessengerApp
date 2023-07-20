@@ -15,7 +15,7 @@ import ge.lpaichadze.messengerapp.presentation.messaging.MessagingActivity
 class SignUpFragment : BaseFragment() {
 
     private val viewModel: SignUpViewModel by viewModels {
-        SignUpViewModel.getViewModelFactory()
+        SignUpViewModel.getViewModelFactory(this.requireContext())
     }
 
     private lateinit var binding: FragmentSignUpBinding
@@ -49,6 +49,7 @@ class SignUpFragment : BaseFragment() {
             val occupation = binding.occupationEditText.text.toString()
 
             if (validateInput(nickName, password)) {
+                showProgressBar()
                 viewModel.attemptSignUp(nickName, password, occupation)
             }
         }
@@ -64,6 +65,7 @@ class SignUpFragment : BaseFragment() {
             success = false
         } else if (!isNickNameValid(nickName)) {
             binding.nickNameEditText.error = getString(R.string.nickname_chars_invalid)
+            success = false
         }
 
         if (password.isEmpty()) {
@@ -71,6 +73,7 @@ class SignUpFragment : BaseFragment() {
             success = false
         } else if (password.length < 6) {
             binding.passwordTextField.error = getString(R.string.password_must_be_atleast_six_long)
+            success = false
         }
 
         return success

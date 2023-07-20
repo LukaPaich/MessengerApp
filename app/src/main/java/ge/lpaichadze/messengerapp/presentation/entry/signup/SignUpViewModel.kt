@@ -1,5 +1,6 @@
 package ge.lpaichadze.messengerapp.presentation.entry.signup
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -21,17 +22,17 @@ class SignUpViewModel(private val userRepository: UserRepository): ViewModel() {
     }
 
     companion object {
-        fun getViewModelFactory(): SignUpViewModelFactory {
-            return SignUpViewModelFactory()
+        fun getViewModelFactory(context: Context): SignUpViewModelFactory {
+            return SignUpViewModelFactory(context.applicationContext)
         }
     }
 }
 
 @Suppress("UNCHECKED_CAST")
-class SignUpViewModelFactory : ViewModelProvider.Factory {
+class SignUpViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return SignUpViewModel(
-            FireBaseUserRepository(Firebase.database, Firebase.auth)
+            FireBaseUserRepository(context, Firebase.database, Firebase.auth)
         ) as T
     }
 }

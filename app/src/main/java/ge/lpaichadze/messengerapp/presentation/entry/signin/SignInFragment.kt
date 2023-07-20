@@ -15,7 +15,7 @@ import ge.lpaichadze.messengerapp.presentation.messaging.MessagingActivity
 class SignInFragment : BaseFragment() {
 
     private val viewModel: SignInViewModel by viewModels {
-        SignInViewModel.getViewModelFactory()
+        SignInViewModel.getViewModelFactory(this.requireContext())
     }
 
     private lateinit var binding: FragmentSignInBinding

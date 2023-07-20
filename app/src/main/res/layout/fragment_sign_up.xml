@@ -95,6 +95,7 @@
         android:id="@+id/errorText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="?attr/errorTextColor"
         android:layout_marginTop="@dimen/small_space"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

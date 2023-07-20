@@ -1,7 +1,41 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.MessengerApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:windowBackground">@color/white</item>
+        <item name="colorPrimary">@color/light_blue</item>
+        <item name="textInputFilledStyle">@style/Widget.App.TextInputLayout</item>
+        <item name="materialButtonStyle">@style/Widget.App.Button</item>
+        <item name="materialButtonOutlinedStyle">@style/Widget.App.Button.OutlinedButton</item>
+    </style>
+
+    <style name="Theme.MessengerApp" parent="Base.Theme.MessengerApp"/>
+
+    <style name="Widget.App.Button.OutlinedButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="Widget.App.TextInputLayout" parent="Widget.Material3.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">@color/off_white</item>
+        <item name="shapeAppearanceOverlay">
+            @style/ShapeAppearance.App.SmallComponent.FilledTextInputLayout
+        </item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+    </style>
+
+    <style name="Widget.App.Button" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/light_blue</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.App.SmallComponent</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent.FilledTextInputLayout" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">100dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
     </style>
 </resources>

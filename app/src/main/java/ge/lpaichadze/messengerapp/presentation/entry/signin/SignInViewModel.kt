@@ -1,5 +1,6 @@
 package ge.lpaichadze.messengerapp.presentation.entry.signin
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -21,17 +22,17 @@ class SignInViewModel(private val userRepository: UserRepository) : ViewModel() 
     }
 
     companion object {
-        fun getViewModelFactory(): SignInViewModelFactory {
-            return SignInViewModelFactory()
+        fun getViewModelFactory(context: Context): SignInViewModelFactory {
+            return SignInViewModelFactory(context.applicationContext)
         }
     }
 }
 
 @Suppress("UNCHECKED_CAST")
-class SignInViewModelFactory : ViewModelProvider.Factory {
+class SignInViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return SignInViewModel(
-            FireBaseUserRepository(Firebase.database, Firebase.auth)
+            FireBaseUserRepository(context, Firebase.database, Firebase.auth)
         ) as T
     }
 }
