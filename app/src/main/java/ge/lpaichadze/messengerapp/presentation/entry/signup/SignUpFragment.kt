@@ -21,8 +21,8 @@ class SignUpFragment : BaseFragment() {
     private lateinit var binding: FragmentSignUpBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
         setProgressBar(binding.signUpProgressBar)

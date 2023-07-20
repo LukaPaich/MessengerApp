@@ -1,7 +1,7 @@
 package ge.lpaichadze.messengerapp.presentation.home
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import ge.lpaichadze.messengerapp.R
 
 // TODO: Do stuff here

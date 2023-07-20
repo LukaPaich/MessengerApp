@@ -26,8 +26,12 @@ interface UserRepository {
     fun loginUser(nickName: String, password: String)
 }
 
-class FireBaseUserRepository(private val context: Context, db: FirebaseDatabase, private val auth: FirebaseAuth) :
-    UserRepository {
+class FireBaseUserRepository(
+        private val context: Context,
+        db: FirebaseDatabase,
+        private val auth: FirebaseAuth
+) :
+        UserRepository {
 
     private val emailCounterRef = db.getReference("EmailCounter")
 
@@ -50,105 +54,105 @@ class FireBaseUserRepository(private val context: Context, db: FirebaseDatabase,
     private fun insertUser(user: User) {
         user.uid?.let { uid ->
             usersRef.child(uid).setValue(user)
-                .addOnSuccessListener {
-                    _liveCurrentUserData.postValue(user)
-                }
-                .addOnFailureListener {
-                    postError(it, R.string.default_db_error)
-                }
+                    .addOnSuccessListener {
+                        _liveCurrentUserData.postValue(user)
+                    }
+                    .addOnFailureListener {
+                        postError(it, R.string.default_db_error)
+                    }
         }
     }
 
     override fun getCurrentUserByUid(uid: String) {
         usersRef.child(uid).get()
-            .addOnSuccessListener {
-                _liveCurrentUserData.postValue(it.getValue(User::class.java))
-            }
-            .addOnFailureListener {
-                postError(it, R.string.default_db_error)
-            }
+                .addOnSuccessListener {
+                    _liveCurrentUserData.postValue(it.getValue(User::class.java))
+                }
+                .addOnFailureListener {
+                    postError(it, R.string.default_db_error)
+                }
     }
 
     override fun registerUser(nickName: String, password: String, occupation: String) {
         usersRef.orderByChild("nickName")
-            .equalTo(nickName)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        _liveErrorData.postValue(context.getString(R.string.nickname_in_use))
-                    } else {
-                        insertNewUser(nickName, password, occupation)
+                .equalTo(nickName)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            _liveErrorData.postValue(context.getString(R.string.nickname_in_use))
+                        } else {
+                            insertNewUser(nickName, password, occupation)
+                        }
                     }
-                }
 
-                override fun onCancelled(error: DatabaseError) {
-                    _liveErrorData.postValue(error.message)
-                }
-            })
+                    override fun onCancelled(error: DatabaseError) {
+                        _liveErrorData.postValue(error.message)
+                    }
+                })
     }
 
     private fun insertNewUser(nickName: String, password: String, occupation: String) {
         emailCounterRef.get()
-            .addOnSuccessListener { snapShot ->
-                val emailId = snapShot.getValue(Int::class.java) ?: 0
+                .addOnSuccessListener { snapShot ->
+                    val emailId = snapShot.getValue(Int::class.java) ?: 0
 
-                auth.createUserWithEmailAndPassword(nickName.toEmail(emailId), password)
-                    .addOnSuccessListener {
-                        emailCounterRef.setValue(emailId + 1)
+                    auth.createUserWithEmailAndPassword(nickName.toEmail(emailId), password)
                             .addOnSuccessListener {
-                                insertUser(
-                                    User(
-                                        uid = auth.currentUser!!.uid,
-                                        nickName = nickName,
-                                        email = nickName.toEmail(emailId),
-                                        occupation = occupation
-                                    )
-                                )
+                                emailCounterRef.setValue(emailId + 1)
+                                        .addOnSuccessListener {
+                                            insertUser(
+                                                    User(
+                                                            uid = auth.currentUser!!.uid,
+                                                            nickName = nickName,
+                                                            email = nickName.toEmail(emailId),
+                                                            occupation = occupation
+                                                    )
+                                            )
+                                        }
+                                        .addOnFailureListener {
+                                            postError(it, R.string.default_db_error)
+                                        }
+
                             }
                             .addOnFailureListener {
                                 postError(it, R.string.default_db_error)
                             }
 
-                    }
-                    .addOnFailureListener {
-                        postError(it, R.string.default_db_error)
-                    }
-
-            }
-            .addOnFailureListener {
-                postError(it, R.string.default_db_error)
-            }
+                }
+                .addOnFailureListener {
+                    postError(it, R.string.default_db_error)
+                }
 
     }
 
     override fun loginUser(nickName: String, password: String) {
         usersRef.orderByChild("nickName")
-            .equalTo(nickName)
-            .get()
-            .addOnSuccessListener { snapshot ->
-                if (!snapshot.exists()) {
-                    _liveErrorData.postValue(context.getString(R.string.nickname_not_found))
-                } else {
-                    val userData = snapshot.children.first().getValue(User::class.java)
-                    if (userData?.email == null) { // shouldn't happen
-                        _liveErrorData.postValue(context.getString(R.string.default_db_error))
-                        return@addOnSuccessListener
-                    }
+                .equalTo(nickName)
+                .get()
+                .addOnSuccessListener { snapshot ->
+                    if (!snapshot.exists()) {
+                        _liveErrorData.postValue(context.getString(R.string.nickname_not_found))
+                    } else {
+                        val userData = snapshot.children.first().getValue(User::class.java)
+                        if (userData?.email == null) { // shouldn't happen
+                            _liveErrorData.postValue(context.getString(R.string.default_db_error))
+                            return@addOnSuccessListener
+                        }
 
-                    auth.signInWithEmailAndPassword(
-                        userData.email, password
-                    )
-                        .addOnSuccessListener {
-                            _liveCurrentUserData.postValue(userData)
-                        }
-                        .addOnFailureListener {
-                            postError(it, R.string.default_auth_error)
-                        }
+                        auth.signInWithEmailAndPassword(
+                                userData.email, password
+                        )
+                                .addOnSuccessListener {
+                                    _liveCurrentUserData.postValue(userData)
+                                }
+                                .addOnFailureListener {
+                                    postError(it, R.string.default_auth_error)
+                                }
+                    }
                 }
-            }
-            .addOnFailureListener {
-                postError(it, R.string.default_db_error)
-            }
+                .addOnFailureListener {
+                    postError(it, R.string.default_db_error)
+                }
     }
 
     private fun postError(exception: Exception, @StringRes defaultResId: Int) {

@@ -32,7 +32,7 @@ class SignInViewModel(private val userRepository: UserRepository) : ViewModel() 
 class SignInViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return SignInViewModel(
-            FireBaseUserRepository(context, Firebase.database, Firebase.auth)
+                FireBaseUserRepository(context, Firebase.database, Firebase.auth)
         ) as T
     }
 }

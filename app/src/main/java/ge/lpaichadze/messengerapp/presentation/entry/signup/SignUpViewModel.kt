@@ -11,7 +11,7 @@ import ge.lpaichadze.messengerapp.persistence.FireBaseUserRepository
 import ge.lpaichadze.messengerapp.persistence.UserRepository
 import ge.lpaichadze.messengerapp.persistence.model.User
 
-class SignUpViewModel(private val userRepository: UserRepository): ViewModel() {
+class SignUpViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     val liveCurrentUserData: LiveData<User?> = userRepository.liveCurrentUserData
 
@@ -32,7 +32,7 @@ class SignUpViewModel(private val userRepository: UserRepository): ViewModel() {
 class SignUpViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return SignUpViewModel(
-            FireBaseUserRepository(context, Firebase.database, Firebase.auth)
+                FireBaseUserRepository(context, Firebase.database, Firebase.auth)
         ) as T
     }
 }

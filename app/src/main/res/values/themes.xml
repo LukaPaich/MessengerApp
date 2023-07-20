@@ -10,7 +10,7 @@
         <item name="bottomAppBarStyle">@style/Widget.App.BottomAppBar</item>
     </style>
 
-    <style name="Theme.MessengerApp" parent="Base.Theme.MessengerApp"/>
+    <style name="Theme.MessengerApp" parent="Base.Theme.MessengerApp" />
 
     <style name="Widget.App.Button.OutlinedButton" parent="Widget.Material3.Button.OutlinedButton">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearance.App.SmallComponent</item>
