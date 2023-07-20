@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import ge.lpaichadze.messengerapp.presentation.entry.LoginActivity
-import ge.lpaichadze.messengerapp.presentation.messaging.MessagingActivity
+import ge.lpaichadze.messengerapp.presentation.home.HomeActivity
 import ge.lpaichadze.messengerapp.R
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         if (authService.currentUser == null) {
             startActivity(Intent(this, LoginActivity::class.java))
         } else {
-            startActivity(Intent(this, MessagingActivity::class.java))
+            startActivity(Intent(this, HomeActivity::class.java))
         }
 
         finish()

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".presentation.home.settings.SettingsFragment">
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".presentation.home.settings.SettingsFragment">
+
+    <Button
+      android:id="@+id/updateButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/small_space"
+      android:enabled="false"
+      android:text="@string/update"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/passwordTextField"
+      tools:enabled="true" />
+
+    <Button
+      android:id="@+id/signOutButton"
+      style="?attr/materialButtonOutlinedStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/x_small_space"
+      android:enabled="false"
+      android:text="@string/sign_out"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/updateButton"
+      tools:enabled="true" />
+
+    <ProgressBar
+      android:id="@+id/progressBar"
+      style="?android:attr/progressBarStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:visibility="visible"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/settingsErrorText" />
+
+    <TextView
+      android:id="@+id/settingsErrorText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/x_small_space"
+      android:textColor="?attr/colorError"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/signOutButton"
+      tools:text="Error Text here" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+      android:id="@+id/imageView"
+      android:layout_width="@dimen/login_icon_size"
+      android:layout_height="@dimen/login_icon_size"
+      android:layout_marginTop="@dimen/medium_space"
+      android:contentDescription="@string/login_screen_batman_icon"
+      android:scaleType="fitCenter"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:shapeAppearance="@style/roundedImageViewStyle"
+      app:srcCompat="@drawable/avatar_image_placeholder" />
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/nickNameTextField"
+      style="?attr/textInputFilledStyle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/medium_space"
+      android:layout_marginHorizontal="@dimen/medium_space"
+      android:hint="@string/nickname"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+      <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/nickNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:gravity="center"
+        android:textSize="@dimen/large_text"
+        tools:enabled="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/passwordTextField"
+      style="?attr/textInputFilledStyle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/small_space"
+      android:layout_marginHorizontal="@dimen/medium_space"
+      android:hint="@string/what_i_do"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/nickNameTextField">
+
+      <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:gravity="center"
+        android:inputType="textPassword"
+        android:textSize="@dimen/large_text"
+        tools:enabled="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

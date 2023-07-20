@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import ge.lpaichadze.messengerapp.R
 import ge.lpaichadze.messengerapp.databinding.FragmentSignInBinding
 import ge.lpaichadze.messengerapp.presentation.BaseFragment
-import ge.lpaichadze.messengerapp.presentation.messaging.MessagingActivity
+import ge.lpaichadze.messengerapp.presentation.home.HomeActivity
 
 class SignInFragment : BaseFragment() {
 
@@ -30,7 +30,7 @@ class SignInFragment : BaseFragment() {
         viewModel.liveCurrentUserData.observe(this.viewLifecycleOwner) {
             if (it != null) {
                 hideProgressBar()
-                startActivity(Intent(activity, MessagingActivity::class.java))
+                startActivity(Intent(activity, HomeActivity::class.java))
                 requireActivity().finish()
             }
         }
