@@ -17,13 +17,16 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_app_bar_height"
         app:layout_anchor="@+id/viewPager"
+        app:contentInsetStart="@dimen/zero"
+        app:hideOnScroll="true"
         app:layout_anchorGravity="bottom|center">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            app:itemIconSize="@dimen/medium_space"
+            app:itemIconSize="@dimen/smaller_medium"
             app:labelVisibilityMode="unlabeled"
             app:layout_anchor="@+id/viewPager"
             app:layout_anchorGravity="bottom|center"

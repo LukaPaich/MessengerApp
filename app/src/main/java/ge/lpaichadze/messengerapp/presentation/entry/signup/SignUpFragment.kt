@@ -10,6 +10,7 @@ import ge.lpaichadze.messengerapp.R
 import ge.lpaichadze.messengerapp.databinding.FragmentSignUpBinding
 import ge.lpaichadze.messengerapp.presentation.BaseFragment
 import ge.lpaichadze.messengerapp.presentation.home.HomeActivity
+import ge.lpaichadze.messengerapp.utils.isValidNickname
 
 
 class SignUpFragment : BaseFragment() {
@@ -63,7 +64,7 @@ class SignUpFragment : BaseFragment() {
         if (nickName.isEmpty()) {
             binding.nickNameTextField.error = getString(R.string.nickname_field_must_be_filled)
             success = false
-        } else if (!isNickNameValid(nickName)) {
+        } else if (nickName.isValidNickname()) {
             binding.nickNameEditText.error = getString(R.string.nickname_chars_invalid)
             success = false
         }
@@ -77,11 +78,6 @@ class SignUpFragment : BaseFragment() {
         }
 
         return success
-    }
-
-    private fun isNickNameValid(input: String): Boolean {
-        val regex = Regex("^[a-zA-Z0-9 ]+\$")
-        return input.matches(regex)
     }
 
 

@@ -20,7 +20,7 @@
             android:text="@string/update"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/passwordTextField"
+            app:layout_constraintTop_toBottomOf="@+id/occupationTextField"
             tools:enabled="true" />
 
         <Button
@@ -93,7 +93,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passwordTextField"
+            android:id="@+id/occupationTextField"
             style="?attr/textInputFilledStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -104,12 +104,11 @@
             app:layout_constraintTop_toBottomOf="@+id/nickNameTextField">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/passwordEditText"
+                android:id="@+id/occupationEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:gravity="center"
-                android:inputType="textPassword"
                 android:textSize="@dimen/large_text"
                 tools:enabled="true" />
 

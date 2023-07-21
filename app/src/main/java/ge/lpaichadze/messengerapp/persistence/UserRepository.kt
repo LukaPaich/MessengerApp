@@ -24,6 +24,9 @@ interface UserRepository {
     fun registerUser(nickName: String, password: String, occupation: String)
 
     fun loginUser(nickName: String, password: String)
+
+    fun signOutCurrentUser()
+    fun updateCurrentUser(userName: String, occupation: String, imageUri: String)
 }
 
 class FireBaseUserRepository(
@@ -155,9 +158,17 @@ class FireBaseUserRepository(
                 }
     }
 
+    override fun signOutCurrentUser() {
+        auth.signOut()
+        _liveCurrentUserData.postValue(null)
+    }
+
+    override fun updateCurrentUser(userName: String, occupation: String, imageUri: String) {
+        TODO()
+    }
+
     private fun postError(exception: Exception, @StringRes defaultResId: Int) {
         _liveErrorData.postValue(exception.message ?: context.getString(defaultResId))
     }
-
 
 }
