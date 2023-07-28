@@ -1,5 +1,6 @@
 package ge.lpaichadze.messengerapp.persistence.model
 
+import android.net.Uri
 import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties

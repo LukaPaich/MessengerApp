@@ -1,11 +1,15 @@
 package ge.lpaichadze.messengerapp.presentation.home.settings
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import ge.lpaichadze.messengerapp.R
 import ge.lpaichadze.messengerapp.databinding.FragmentSettingsBinding
 import ge.lpaichadze.messengerapp.persistence.model.User
@@ -19,11 +23,22 @@ class SettingsFragment : BaseFragment() {
         SettingsViewModel.getViewModelFactory(this.requireContext())
     }
 
+    private val pickMedia =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            uri?.let {
+                onMediaPicked(it)
+            }
+        }
+
     private lateinit var binding: FragmentSettingsBinding
 
+    private var pickedImgUri: Uri? = null
+
+    private var currentUser: User? = null
+
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
@@ -37,6 +52,10 @@ class SettingsFragment : BaseFragment() {
             val activity = requireActivity()
             activity.startActivity(Intent(activity, LoginActivity::class.java))
             activity.finish()
+        }
+
+        binding.profileIcon.setOnClickListener {
+            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
 
         binding.updateButton.setOnClickListener {
@@ -55,7 +74,8 @@ class SettingsFragment : BaseFragment() {
 
             switchInput(false)
             showProgressBar()
-            viewModel.update(nickName, occupation, "")
+            // We know for sure here currentUser and currentUser email is not null
+            viewModel.update(nickName, currentUser!!.email!!, occupation, pickedImgUri)
         }
 
         viewModel.liveErrorData.observe(this.viewLifecycleOwner) {
@@ -70,6 +90,7 @@ class SettingsFragment : BaseFragment() {
         viewModel.liveCurrentUserData.observe(this.viewLifecycleOwner) {
             if (it != null) {
                 hideProgressBar()
+                currentUser = it
                 updateData(it)
                 switchInput(true)
             }
@@ -78,8 +99,13 @@ class SettingsFragment : BaseFragment() {
         return binding.root
     }
 
+    private fun onMediaPicked(uri: Uri) {
+        pickedImgUri = uri
+        binding.profileIcon.setImageURI(uri)
+    }
+
     private fun switchInput(enabled: Boolean) {
-        binding.imageView.isEnabled = enabled
+        binding.profileIcon.isEnabled = enabled
         binding.nickNameEditText.isEnabled = enabled
         binding.occupationEditText.isEnabled = enabled
         binding.signOutButton.isEnabled = enabled
@@ -89,8 +115,13 @@ class SettingsFragment : BaseFragment() {
     private fun updateData(user: User) {
         binding.nickNameEditText.setText(user.nickName)
         binding.occupationEditText.setText(user.occupation)
+        user.imgUri?.let {
+            Glide.with(this)
+                .load(it)
+                .into(binding.profileIcon)
 
-        // TODO: Image setting
+            pickedImgUri = Uri.parse(user.imgUri)
+        }
     }
 
 }

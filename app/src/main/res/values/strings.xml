@@ -16,6 +16,7 @@
   <string name="password_must_be_atleast_six_long">Password must be atleast six letters long</string>
   <string name="default_db_error">DB Error</string>
   <string name="default_auth_error">Auth Error</string>
+  <string name="default_cloud_storage_error">Cloud Storage Error</string>
   <string name="nickname_in_use">Nickname In Use</string>
   <string name="nickname_not_found">A User with such nickname was not found</string>
   <string name="home">Home</string>

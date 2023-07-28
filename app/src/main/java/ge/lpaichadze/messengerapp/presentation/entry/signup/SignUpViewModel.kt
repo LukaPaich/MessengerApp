@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import ge.lpaichadze.messengerapp.persistence.FireBaseUserRepository
 import ge.lpaichadze.messengerapp.persistence.UserRepository
 import ge.lpaichadze.messengerapp.persistence.model.User
@@ -32,7 +33,7 @@ class SignUpViewModel(private val userRepository: UserRepository) : ViewModel() 
 class SignUpViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return SignUpViewModel(
-                FireBaseUserRepository(context, Firebase.database, Firebase.auth)
+                FireBaseUserRepository(context, Firebase.database, Firebase.auth, Firebase.storage)
         ) as T
     }
 }
