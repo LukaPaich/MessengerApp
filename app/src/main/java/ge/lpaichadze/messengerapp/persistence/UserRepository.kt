@@ -22,6 +22,8 @@ interface UserRepository {
 
     val liveErrorData: LiveData<String?>
 
+    val liveUsersData: LiveData<List<User>?>
+
     fun getCurrentUserByUid(uid: String)
 
     fun registerUser(nickName: String, password: String, occupation: String)
@@ -29,11 +31,16 @@ interface UserRepository {
     fun loginUser(nickName: String, password: String)
 
     fun signOutCurrentUser()
+
     fun updateCurrentUser(
         nickName: String,
         email: String,
         occupation: String,
         imageUri: Uri? = null
+    )
+
+    fun searchUsers(
+        query: String
     )
 }
 
@@ -56,6 +63,10 @@ class FireBaseUserRepository(
     private val _liveErrorData: MutableLiveData<String?> = MutableLiveData(null)
     override val liveErrorData: LiveData<String?>
         get() = _liveErrorData
+
+    private val _liveUsersData: MutableLiveData<List<User>?> = MutableLiveData(null)
+    override val liveUsersData: LiveData<List<User>?>
+        get() = _liveUsersData
 
     init {
         if (auth.currentUser != null) {
@@ -197,6 +208,23 @@ class FireBaseUserRepository(
         } else {
             insertUser(User(auth.uid, nickName, email, occupation, imageUri?.toString()))
         }
+    }
+
+    override fun searchUsers(query: String) {
+        usersRef
+            .orderByChild("nickName")
+            .startAt(query)
+            .endAt(query + "\uf8ff")
+            .get()
+            .addOnSuccessListener {
+                val list = it.children
+                    .mapNotNull { userSnapshot -> userSnapshot.getValue(User::class.java) }
+
+                _liveUsersData.postValue(list)
+            }
+            .addOnFailureListener {
+                postError(it, R.string.default_db_error)
+            }
     }
 
     private fun postError(exception: Exception, @StringRes defaultResId: Int) {

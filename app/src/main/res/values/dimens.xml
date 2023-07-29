@@ -11,4 +11,5 @@
     <dimen name="login_icon_size">200dp</dimen>
     <dimen name="large_text">20sp</dimen>
     <dimen name="bottom_app_bar_height">60dp</dimen>
+    <dimen name="search_field_alpha">0.9</dimen>
 </resources>

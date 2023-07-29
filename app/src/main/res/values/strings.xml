@@ -27,4 +27,6 @@
   <string name="update">UPDATE</string>
   <string name="sign_out">SIGN OUT</string>
   <string name="nickname">Nickname</string>
+  <string name="search">Search</string>
+    <string name="no_users_found">No Users found</string>
 </resources>
