@@ -15,12 +15,14 @@ import ge.lpaichadze.messengerapp.persistence.model.Conversation
 import ge.lpaichadze.messengerapp.persistence.model.FullConversationData
 import ge.lpaichadze.messengerapp.persistence.model.User
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.tasks.await
 
 interface ConversationRepository {
@@ -99,13 +101,13 @@ class FireBaseConversationRepository(
             val childEventListener = object: ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                     CoroutineScope(currentScope)
-                        .launch {
+                        .launch(Dispatchers.Default) {
                             searchByNickname(if (keepQueryOnUpdate) lastQuery else "")
                         }
                 }
 
                 override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                    CoroutineScope(currentScope)
+                    CoroutineScope(Dispatchers.Default)
                         .launch {
                             searchByNickname(if (keepQueryOnUpdate) lastQuery else "")
                         }
