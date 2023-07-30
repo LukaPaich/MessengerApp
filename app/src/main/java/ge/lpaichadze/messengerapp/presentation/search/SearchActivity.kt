@@ -13,11 +13,10 @@ import ge.lpaichadze.messengerapp.databinding.ActivitySearchBinding
 import ge.lpaichadze.messengerapp.persistence.model.User
 import ge.lpaichadze.messengerapp.presentation.conversation.ConversationActivity
 import ge.lpaichadze.messengerapp.presentation.conversation.TO_USER_DATA
+import ge.lpaichadze.messengerapp.utils.DEBOUNCE_DELAY
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-
-private const val DEBOUNCE_DELAY = 300L
 
 class SearchActivity : AppCompatActivity() {
 
@@ -52,7 +51,6 @@ class SearchActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                lastSearchJob?.cancel()
                 if (s == null || (s.isNotEmpty() && s.length < 3)) {
                     return
                 }
@@ -117,6 +115,7 @@ class SearchActivity : AppCompatActivity() {
             return
         }
 
+        binding.noUsersFoundLabel.visibility = View.INVISIBLE
         binding.searchResults.visibility = View.VISIBLE
         adapter.results = users
     }

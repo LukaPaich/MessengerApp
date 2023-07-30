@@ -41,6 +41,7 @@
                     app:startIconDrawable="@drawable/baseline_search_24">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/searchTextField"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/search" />
@@ -68,8 +69,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_anchor="@+id/recyclerView"
-        app:layout_anchorGravity="center"
+        android:layout_gravity="center"
         tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/noUsersFoundLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:text="@string/no_users_found" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -9,6 +9,8 @@ import java.time.format.DateTimeFormatter
 
 private const val EMAIL_SUFFIX = "freeuni.edu.ge"
 
+const val DEBOUNCE_DELAY = 300L
+
 fun String.toEmail(id: Int = 0): String {
     return this.replace(' ', '_') + "@" + id + EMAIL_SUFFIX
 }

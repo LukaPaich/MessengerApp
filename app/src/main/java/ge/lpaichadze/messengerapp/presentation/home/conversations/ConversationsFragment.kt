@@ -2,17 +2,22 @@ package ge.lpaichadze.messengerapp.presentation.home.conversations
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import ge.lpaichadze.messengerapp.R
+import androidx.lifecycle.lifecycleScope
 import ge.lpaichadze.messengerapp.databinding.FragmentConversationsBinding
 import ge.lpaichadze.messengerapp.presentation.BaseFragment
 import ge.lpaichadze.messengerapp.presentation.conversation.ConversationActivity
 import ge.lpaichadze.messengerapp.presentation.conversation.TO_USER_DATA
+import ge.lpaichadze.messengerapp.utils.DEBOUNCE_DELAY
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class ConversationsFragment : BaseFragment() {
 
@@ -24,8 +29,10 @@ class ConversationsFragment : BaseFragment() {
 
     private lateinit var adapter: FullConversationAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    private var lastSearchJob: Job? = null
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         binding = FragmentConversationsBinding.inflate(inflater, container, false)
         setProgressBar(binding.progressBar)
 
@@ -35,6 +42,24 @@ class ConversationsFragment : BaseFragment() {
             startActivity(intent)
         }
         binding.recyclerView.adapter = adapter
+
+        binding.searchTextField.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(
+                s: CharSequence?, start: Int, count: Int, after: Int
+            ) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s == null || (s.isNotEmpty() && s.length < 3)) {
+                    return
+                }
+
+                lastSearchJob?.cancel()
+                launchSearch(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
 
         viewModel.liveErrorData.observe(viewLifecycleOwner) {
             it?.let {
@@ -47,17 +72,23 @@ class ConversationsFragment : BaseFragment() {
             it?.let {
                 hideProgressBar()
                 adapter.conversations = it
+                if (it.isEmpty()) {
+                    binding.noUsersFoundLabel.visibility = View.VISIBLE
+                } else {
+                    binding.noUsersFoundLabel.visibility = View.GONE
+                }
             }
         }
 
 
+        // Only show progressbar for first load
+        showProgressBar()
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
-        showProgressBar()
-        viewModel.searchByNickname("")
+        launchSearch()
         viewModel.listenToConversations(true)
     }
 
@@ -65,5 +96,13 @@ class ConversationsFragment : BaseFragment() {
     override fun onPause() {
         super.onPause()
         viewModel.stopListening()
+    }
+
+    private fun launchSearch(query: String = "") {
+        lastSearchJob = lifecycleScope.launch {
+            delay(DEBOUNCE_DELAY)
+            showProgressBar()
+            viewModel.searchByNickname(query)
+        }
     }
 }
