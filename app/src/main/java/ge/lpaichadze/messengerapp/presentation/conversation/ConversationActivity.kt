@@ -1,14 +1,16 @@
 package ge.lpaichadze.messengerapp.presentation.conversation
 
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import ge.lpaichadze.messengerapp.R
 import ge.lpaichadze.messengerapp.databinding.ActivityConversationBinding
 import ge.lpaichadze.messengerapp.persistence.model.User
 import java.time.Instant
+import kotlin.math.abs
 
 const val TO_USER_DATA = "TO_USER_DATA"
 
@@ -28,6 +30,8 @@ class ConversationActivity : AppCompatActivity() {
 
     private var fullRefresh: Boolean = true
 
+    private var consumed: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,8 +43,7 @@ class ConversationActivity : AppCompatActivity() {
         userTo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getSerializableExtra(TO_USER_DATA, User::class.java)!!
         } else {
-            @Suppress("DEPRECATION")
-            intent.getSerializableExtra(TO_USER_DATA) as User
+            @Suppress("DEPRECATION") intent.getSerializableExtra(TO_USER_DATA) as User
         }
 
         binding.nickName.text = userTo.nickName
@@ -76,6 +79,11 @@ class ConversationActivity : AppCompatActivity() {
                 if (fullRefresh) {
                     adapter.messages = it.toMutableList()
                     fullRefresh = false
+                    consumed = true
+                    binding.recyclerView.scrollToPosition(adapter.itemCount - 1)
+                    viewModel.listenToMessages(curUserUid, userTo.uid!!)
+                } else if (consumed) {
+                    consumed = false
                 } else {
                     adapter.appendList(it)
                 }

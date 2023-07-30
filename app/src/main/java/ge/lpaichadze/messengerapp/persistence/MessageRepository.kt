@@ -51,7 +51,7 @@ class FireBaseMessageRepository(
 
     override fun getMessagesBetween(userUid: String, otherUserUid: String) {
         messages
-            .equalTo(generateIdentifier(userUid, otherUserUid), "identifier")
+            .child(generateIdentifier(userUid, otherUserUid))
             .orderByChild("time")
             .get()
             .addOnSuccessListener {
@@ -66,7 +66,7 @@ class FireBaseMessageRepository(
 
     override fun listenConversationBetween(userUid: String, otherUserUid: String) {
         messages
-            .equalTo(generateIdentifier(userUid, otherUserUid), "identifier")
+            .child(generateIdentifier(userUid, otherUserUid))
             .addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                     _liveMessageData.postValue(listOf(snapshot.getValue(Message::class.java)!!))
@@ -89,18 +89,20 @@ class FireBaseMessageRepository(
 
     override fun sendMessage(fromUid: String, toUid: String, content: String, time: Instant) {
         val message = Message(
-            generateIdentifier(fromUid, toUid),
             fromUid,
             toUid,
             content,
             time.toEpochMilli()
         )
-        messages.push().key?.let {
-            messages.child(it).setValue(message)
-                .addOnFailureListener { exception ->
-                    postError(exception)
-                }
-        }
+        val identifierReference = messages.child(generateIdentifier(fromUid, toUid))
+
+        identifierReference
+            .push().key?.let {
+                identifierReference.child(it).setValue(message)
+                    .addOnFailureListener { exception ->
+                        postError(exception)
+                    }
+            }
     }
 
     private fun postError(

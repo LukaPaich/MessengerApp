@@ -77,21 +77,36 @@
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/fill_space"
+            android:background="?android:windowBackground"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:background="@color/white"
-            app:stackFromEnd="true" />
+            app:layout_constraintBottom_toTopOf="@id/chatBox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHeight_default="wrap"
+            app:layout_constraintVertical_bias="0.0" />
 
-    </com.google.android.material.appbar.AppBarLayout>
 
-    <include
-        android:id="@+id/chatBox"
-        layout="@layout/chat_box"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom" />
+        <include
+            android:id="@+id/chatBox"
+            layout="@layout/chat_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
