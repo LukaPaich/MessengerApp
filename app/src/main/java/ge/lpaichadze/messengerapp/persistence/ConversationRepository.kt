@@ -69,7 +69,6 @@ class FireBaseConversationRepository(
             try {
                 val conversations = conversations
                     .child(uid)
-                    .orderByChild("time")
                     .get()
                     .await()
 
@@ -83,6 +82,7 @@ class FireBaseConversationRepository(
                     }
                     .filter { it.user.nickName?.startsWith(query) ?: false }
                     .toList()
+                    .sorted()
                     .reversed()
 
                 _liveFullConversationsData.postValue(fullConversations)
