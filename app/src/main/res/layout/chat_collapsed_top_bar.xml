@@ -16,7 +16,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical">
 
         <TextView
             android:id="@+id/nickName"
@@ -34,7 +35,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@+id/nickName"
             app:layout_constraintTop_toBottomOf="@+id/nickName"
-            android:textColor="@color/grey"
+            android:textColor="@color/off_white"
             tools:text="occupation" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

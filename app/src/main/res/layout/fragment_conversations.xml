@@ -15,25 +15,27 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
             android:background="@color/blue"
-            app:layout_scrollFlags="scroll">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap|enterAlwaysCollapsed"
+            app:contentScrim="@color/blue">
 
             <androidx.constraintlayout.utils.widget.ImageFilterView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="center"
-                android:src="@drawable/background" />
+                android:src="@drawable/background"/>
 
             <androidx.appcompat.widget.Toolbar
+                app:layout_collapseMode="pin"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center">
+                android:layout_gravity="bottom"
+                android:layout_height="@dimen/xx_large_space">
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="?attr/textInputFilledStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:layout_marginBottom="@dimen/medium_space"
+                    android:layout_marginBottom="@dimen/small_space"
                     android:alpha="@dimen/search_field_alpha"
                     app:layout_collapseMode="pin"
                     app:startIconDrawable="@drawable/baseline_search_24">

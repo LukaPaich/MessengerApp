@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import ge.lpaichadze.messengerapp.R
 import ge.lpaichadze.messengerapp.databinding.ActivityConversationBinding
@@ -73,6 +74,10 @@ class ConversationActivity : AppCompatActivity() {
             if (msg.isNotEmpty()) {
                 viewModel.sendMessage(curUserUid, userTo.uid!!, msg, Instant.now())
             }
+        }
+
+        binding.appBarLayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            binding.collapsedToolBar.root.isVisible = appBarLayout.totalScrollRange + verticalOffset == 0
         }
 
         viewModel.liveErrorData.observe(this) {

@@ -27,12 +27,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
                 android:background="@color/blue"
-                app:layout_scrollFlags="scroll|enterAlways">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:contentScrim="@color/blue">
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:elevation="@dimen/zero">
+                    android:layout_height="@dimen/xx_large_space"
+                    android:elevation="@dimen/zero"
+                    android:layout_gravity="bottom">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -56,7 +58,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/small_space"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/larger_text"
+                            android:textSize="@dimen/large_text"
                             app:layout_constraintBottom_toBottomOf="@+id/profileIcon"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/profileIcon"
@@ -90,7 +92,10 @@
 
                 <include
                     android:id="@+id/collapsedToolBar"
+                    android:layout_height="@dimen/xx_large_space"
+                    android:layout_width="match_parent"
                     layout="@layout/chat_collapsed_top_bar"
+                    android:layout_gravity="bottom"
                     android:visibility="invisible" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
