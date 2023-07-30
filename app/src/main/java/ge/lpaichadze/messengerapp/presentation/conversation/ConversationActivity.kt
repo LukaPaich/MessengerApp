@@ -2,6 +2,8 @@ package ge.lpaichadze.messengerapp.presentation.conversation
 
 import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -73,9 +75,17 @@ class ConversationActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.liveErrorData.observe(this) {
+            if (it != null) {
+                hideProgressBar()
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        }
+
         viewModel.liveMessageData.observe(this) {
             it?.let {
                 if (fullRefresh) {
+                    hideProgressBar()
                     adapter.messages = it.toMutableList()
                     fullRefresh = false
                     consumed = true
@@ -90,6 +100,7 @@ class ConversationActivity : AppCompatActivity() {
             }
         }
 
+        showProgressBar()
         fullRefresh = true
         viewModel.refreshMessages(curUserUid, userTo.uid!!)
         setContentView(binding.root)
@@ -98,5 +109,13 @@ class ConversationActivity : AppCompatActivity() {
     override fun onDestroy() {
         viewModel.stopListening()
         super.onDestroy()
+    }
+
+    private fun showProgressBar() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideProgressBar() {
+        binding.progressBar.visibility = View.GONE
     }
 }

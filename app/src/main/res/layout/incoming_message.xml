@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:layout_marginVertical="@dimen/medium_space">
+    android:layout_marginTop="@dimen/x_small_space">
 
     <TextView
         android:id="@+id/messageContent"
-        android:layout_width="@dimen/fill_space"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/small_space"
         android:layout_marginEnd="@dimen/small_space"
@@ -18,6 +18,7 @@
         android:padding="@dimen/medium_space"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/messageTimestamp"
+        app:layout_constraintHorizontal_bias="@dimen/min_bias"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Message Content" />
@@ -26,7 +27,8 @@
         android:id="@+id/messageTimestamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="@dimen/small_space"
+        android:textColor="@color/grey"
         tools:text="Timestamp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

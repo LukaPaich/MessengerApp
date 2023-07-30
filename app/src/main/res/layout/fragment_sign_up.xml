@@ -89,7 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordTextField"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="@dimen/max_bias" />
 
     <TextView
         android:id="@+id/errorText"

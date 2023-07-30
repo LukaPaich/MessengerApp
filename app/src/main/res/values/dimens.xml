@@ -17,4 +17,6 @@
     <dimen name="circular">50%</dimen>
     <dimen name="message_roundness">40dp</dimen>
     <dimen name="send_button_inset">-32dp</dimen>
+    <dimen name="max_bias">1.0</dimen>
+    <dimen name="min_bias">0.0</dimen>
 </resources>

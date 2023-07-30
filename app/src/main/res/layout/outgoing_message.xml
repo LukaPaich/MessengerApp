@@ -5,19 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:layout_marginVertical="@dimen/medium_space">
+    android:layout_marginTop="@dimen/x_small_space">
 
     <TextView
         android:id="@+id/messageContent"
-        android:layout_width="@dimen/fill_space"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/small_space"
         android:layout_marginStart="@dimen/small_space"
+        android:layout_marginEnd="@dimen/small_space"
         android:background="@drawable/outgoing_message_border"
         android:backgroundTint="@color/blue"
         android:padding="@dimen/medium_space"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="@dimen/max_bias"
         app:layout_constraintStart_toEndOf="@+id/messageTimestamp"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Message Content" />
