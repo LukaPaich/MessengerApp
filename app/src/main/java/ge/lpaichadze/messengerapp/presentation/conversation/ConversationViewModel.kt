@@ -30,11 +30,11 @@ class ConversationViewModel(private val messageRepository: MessageRepository): V
     }
 
     fun listenToMessages(userUid: String, otherUserUid: String) {
-        messageRepository.listenConversationBetween(userUid, otherUserUid)
+        messageRepository.listenMessagesBetween(userUid, otherUserUid)
     }
 
     fun stopListening() {
-        messageRepository.stopListening()
+        messageRepository.stopMessagesListening()
     }
 
     companion object {

@@ -11,6 +11,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import ge.lpaichadze.messengerapp.R
+import ge.lpaichadze.messengerapp.persistence.model.Conversation
 import ge.lpaichadze.messengerapp.persistence.model.Message
 import ge.lpaichadze.messengerapp.utils.generateIdentifier
 import java.time.Instant
@@ -23,9 +24,9 @@ interface MessageRepository {
 
     fun getMessagesBetween(userUid: String, otherUserUid: String)
 
-    fun listenConversationBetween(userUid: String, otherUserUid: String)
+    fun listenMessagesBetween(userUid: String, otherUserUid: String)
 
-    fun stopListening()
+    fun stopMessagesListening()
 
     fun getCurrentUserUid(): String?
 
@@ -51,6 +52,8 @@ class FireBaseMessageRepository(
 
     private val messages = db.getReference("Messages")
 
+    private val conversations = db.getReference("Conversations")
+
     private var conversationListener: ChildEventListener? = null
 
     private var listenerIdentifier: String? = null
@@ -70,8 +73,8 @@ class FireBaseMessageRepository(
             }
     }
 
-    override fun listenConversationBetween(userUid: String, otherUserUid: String) {
-        stopListening()
+    override fun listenMessagesBetween(userUid: String, otherUserUid: String) {
+        stopMessagesListening()
         listenerIdentifier = generateIdentifier(userUid, otherUserUid)
         conversationListener = object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -92,7 +95,7 @@ class FireBaseMessageRepository(
             .addChildEventListener(conversationListener!!)
     }
 
-    override fun stopListening() {
+    override fun stopMessagesListening() {
         if (listenerIdentifier != null && conversationListener != null) {
             messages.child(listenerIdentifier!!).removeEventListener(conversationListener!!)
         }
@@ -102,6 +105,18 @@ class FireBaseMessageRepository(
         return auth.uid
     }
 
+
+    private fun updateConversation(fromUid: String, toUid: String, content: String, time: Instant) {
+        conversations.child(fromUid).child(toUid).setValue(Conversation(toUid, content, time.toEpochMilli()))
+            .addOnFailureListener {
+                postError(it)
+            }
+
+        conversations.child(toUid).child(fromUid).setValue(Conversation(fromUid, content, time.toEpochMilli()))
+            .addOnFailureListener {
+                postError(it)
+            }
+    }
 
     override fun sendMessage(fromUid: String, toUid: String, content: String, time: Instant) {
         val message = Message(
@@ -115,6 +130,9 @@ class FireBaseMessageRepository(
         identifierReference
             .push().key?.let {
                 identifierReference.child(it).setValue(message)
+                    .addOnSuccessListener {
+                        updateConversation(fromUid, toUid, content, time)
+                    }
                     .addOnFailureListener { exception ->
                         postError(exception)
                     }

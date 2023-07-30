@@ -64,12 +64,13 @@
 
                         <com.google.android.material.imageview.ShapeableImageView
                             android:id="@+id/profileIcon"
+                            app:shapeAppearance="@style/roundedImageViewStyle"
                             android:layout_width="@dimen/x_large_space"
                             android:layout_height="@dimen/x_large_space"
                             android:layout_gravity="end"
                             android:layout_marginEnd="@dimen/medium_space"
                             android:contentDescription="@string/login_screen_batman_icon"
-                            android:scaleType="fitCenter"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/avatar_image_placeholder"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -102,6 +103,7 @@
             android:layout_height="wrap_content"
             android:background="?android:windowBackground"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:stackFromEnd="true" />
 
 

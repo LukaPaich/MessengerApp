@@ -12,7 +12,7 @@
         android:layout_height="@dimen/login_icon_size"
         android:layout_marginTop="@dimen/medium_space"
         android:contentDescription="@string/login_screen_batman_icon"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

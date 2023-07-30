@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="?selectableItemBackground"
-    android:layout_height="wrap_content">
+    android:layout_marginBottom="@dimen/small_space">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profileIcon"
@@ -17,7 +18,6 @@
         android:scaleType="centerCrop"
         android:src="@drawable/avatar_image_placeholder"
         app:shapeAppearance="@style/roundedImageViewStyle"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,20 +26,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/medium_space"
+        android:layout_marginTop="@dimen/x_small_space"
         android:textSize="@dimen/large_text"
-        tools:text="NickName"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/profileIcon"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="NickName" />
 
     <TextView
-        android:id="@+id/occupation"
+        android:id="@+id/messageContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Occupation"
         android:textColor="@color/grey"
+        android:layout_marginTop="@dimen/small_space"
         app:layout_constraintStart_toStartOf="@+id/nickName"
-        app:layout_constraintTop_toBottomOf="@+id/nickName" />
+        app:layout_constraintTop_toBottomOf="@+id/nickName"
+        tools:text="Bla Bla Bla" />
 
-
+    <TextView
+        android:id="@+id/timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/small_space"
+        android:textColor="@color/grey"
+        app:layout_constraintBottom_toBottomOf="@+id/nickName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/nickName"
+        tools:text="timestamp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
