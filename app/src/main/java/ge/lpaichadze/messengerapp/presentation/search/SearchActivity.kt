@@ -1,6 +1,7 @@
 package ge.lpaichadze.messengerapp.presentation.search
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import ge.lpaichadze.messengerapp.databinding.ActivitySearchBinding
 import ge.lpaichadze.messengerapp.persistence.model.User
+import ge.lpaichadze.messengerapp.presentation.conversation.ConversationActivity
+import ge.lpaichadze.messengerapp.presentation.conversation.TO_USER_DATA
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -29,9 +32,12 @@ class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        adapter = SearchResultAdapter()
+        adapter = SearchResultAdapter {
+            val intent = Intent(this, ConversationActivity::class.java)
+            intent.putExtra(TO_USER_DATA, it)
+            startActivity(intent)
+        }
         binding.searchResults.adapter = adapter
 
         binding.backButton.setOnClickListener {
@@ -80,6 +86,7 @@ class SearchActivity : AppCompatActivity() {
             }
         }
 
+        setContentView(binding.root)
     }
 
     private fun hideProgressBar() {

@@ -34,12 +34,12 @@
 
     <style name="ShapeAppearance.App.SmallComponent.FilledTextInputLayout" parent="ShapeAppearance.Material3.SmallComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
+        <item name="cornerSize">@dimen/circular</item>
     </style>
 
     <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">10%</item>
+        <item name="cornerSize">@dimen/slightly_round</item>
     </style>
 
     <style name="Widget.App.FloatingActionButton" parent="Widget.Material3.FloatingActionButton.Primary">
@@ -49,7 +49,7 @@
     </style>
 
     <style name="ShapeAppearanceOverlay.App.FloatingActionButton" parent="ShapeAppearanceOverlay.Material3.FloatingActionButton">
-        <item name="cornerSize">50%</item>
+        <item name="cornerSize">@dimen/circular</item>
     </style>
 
     <style name="Widget.App.BottomAppBar" parent="Widget.Material3.BottomAppBar">
@@ -66,7 +66,7 @@
 
     <style name="roundedImageViewStyle" parent="ShapeAppearance.Material3.MediumComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
+        <item name="cornerSize">@dimen/circular</item>
     </style>
 
     <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">

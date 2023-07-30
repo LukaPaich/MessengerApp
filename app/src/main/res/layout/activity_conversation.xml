@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.conversation.ConversationActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            android:background="@color/blue"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/backButton"
+                    android:layout_width="@dimen/medium_space"
+                    android:layout_height="@dimen/medium_space"
+                    android:layout_gravity="top"
+                    android:contentDescription="@string/back_button"
+                    android:src="@drawable/baseline_arrow_back_ios_24"
+                    app:layout_constraintBottom_toTopOf="@+id/nickName"
+                    app:layout_constraintStart_toStartOf="@+id/nickName"
+                    app:tint="@color/white" />
+
+
+                <TextView
+                    android:id="@+id/nickName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_space"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/larger_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/profileIcon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/profileIcon"
+                    tools:text="Account Name" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/profileIcon"
+                    android:layout_width="@dimen/x_large_space"
+                    android:layout_height="@dimen/x_large_space"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/medium_space"
+                    android:contentDescription="@string/login_screen_batman_icon"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/avatar_image_placeholder"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/occupation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/off_white"
+                    app:layout_constraintStart_toStartOf="@+id/nickName"
+                    app:layout_constraintTop_toBottomOf="@+id/nickName"
+                    tools:text="Occupation" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <include
+                android:id="@+id/collapsedToolBar"
+                layout="@layout/chat_collapsed_top_bar"
+                android:visibility="invisible" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:background="@color/white"
+            app:stackFromEnd="true" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include
+        android:id="@+id/chatBox"
+        layout="@layout/chat_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

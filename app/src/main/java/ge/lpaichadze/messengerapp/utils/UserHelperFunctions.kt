@@ -1,6 +1,7 @@
 package ge.lpaichadze.messengerapp.utils
 
 import android.net.Uri
+import androidx.lifecycle.LiveData
 
 private const val EMAIL_SUFFIX = "freeuni.edu.ge"
 
@@ -15,4 +16,12 @@ fun String.isValidNickname(): Boolean {
 
 fun Uri.isLocal(): Boolean {
     return this.scheme != null && (this.scheme == "file" || this.scheme == "content")
+}
+
+fun generateIdentifier(userUid: String, otherUserUid: String): String {
+    return if (userUid < otherUserUid) {
+        "${userUid}<->${otherUserUid}"
+    } else {
+        "${otherUserUid}<->${userUid}"
+    }
 }

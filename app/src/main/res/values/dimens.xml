@@ -10,6 +10,11 @@
     <dimen name="x_large_space">64dp</dimen>
     <dimen name="login_icon_size">200dp</dimen>
     <dimen name="large_text">20sp</dimen>
+    <dimen name="larger_text">30sp</dimen>
     <dimen name="bottom_app_bar_height">60dp</dimen>
     <dimen name="search_field_alpha">0.9</dimen>
+    <dimen name="slightly_round">10%</dimen>
+    <dimen name="circular">50%</dimen>
+    <dimen name="message_roundness">40dp</dimen>
+    <dimen name="send_button_inset">-32dp</dimen>
 </resources>

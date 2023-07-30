@@ -64,7 +64,7 @@ class SignUpFragment : BaseFragment() {
         if (nickName.isEmpty()) {
             binding.nickNameTextField.error = getString(R.string.nickname_field_must_be_filled)
             success = false
-        } else if (nickName.isValidNickname()) {
+        } else if (!nickName.isValidNickname()) {
             binding.nickNameEditText.error = getString(R.string.nickname_chars_invalid)
             success = false
         }

@@ -1,7 +1,7 @@
 package ge.lpaichadze.messengerapp.persistence.model
 
-import android.net.Uri
 import com.google.firebase.database.IgnoreExtraProperties
+import java.io.Serializable
 
 @IgnoreExtraProperties
 data class User(
@@ -10,4 +10,4 @@ data class User(
         val email: String? = null,
         val occupation: String? = null,
         val imgUri: String? = null
-)
+): Serializable

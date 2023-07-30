@@ -52,6 +52,7 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             tools:visibility="visible"
+            android:background="@color/white"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <TextView

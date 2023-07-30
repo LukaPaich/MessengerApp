@@ -9,7 +9,10 @@ import ge.lpaichadze.messengerapp.R
 import ge.lpaichadze.messengerapp.databinding.SearchResultBinding
 import ge.lpaichadze.messengerapp.persistence.model.User
 
-class SearchResultAdapter : RecyclerView.Adapter<SearchResultAdapter.ViewHolder>() {
+typealias OnSearchResultClicked = (user: User) -> Unit
+
+class SearchResultAdapter(private val onSearchResultClicked: OnSearchResultClicked) :
+    RecyclerView.Adapter<SearchResultAdapter.ViewHolder>() {
 
     var results: List<User>? = null
         @SuppressLint("NotifyDataSetChanged")
@@ -51,6 +54,8 @@ class SearchResultAdapter : RecyclerView.Adapter<SearchResultAdapter.ViewHolder>
             } else {
                 binding.profileIcon.setImageResource(R.drawable.avatar_image_placeholder)
             }
+
+            binding.root.setOnClickListener { onSearchResultClicked(user) }
         }
     }
 }
