@@ -39,6 +39,7 @@ class SearchActivity : AppCompatActivity() {
             val intent = Intent(this, ConversationActivity::class.java)
             intent.putExtra(TO_USER_DATA, it)
             startActivity(intent)
+            finish()
         }
         binding.searchResults.adapter = adapter
 

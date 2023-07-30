@@ -21,16 +21,16 @@
             android:fitsSystemWindows="true">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                style="?attr/collapsingToolbarLayoutLargeStyle"
                 android:id="@+id/collapsingToolbarLayout"
+                style="?attr/collapsingToolbarLayoutLargeStyle"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
-                android:background="@color/blue">
+                android:background="@color/blue"
+                app:layout_scrollFlags="scroll|enterAlways">
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_collapseMode="none"
                     android:elevation="@dimen/zero">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -100,7 +100,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:windowBackground"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:stackFromEnd="true" />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
