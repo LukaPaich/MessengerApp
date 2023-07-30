@@ -29,6 +29,8 @@ class SearchActivity : AppCompatActivity() {
 
     private lateinit var adapter: SearchResultAdapter
 
+    private var lastSearchJob: Job? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
@@ -46,22 +48,16 @@ class SearchActivity : AppCompatActivity() {
 
         binding.searchEditText.addTextChangedListener(object : TextWatcher {
 
-            private var lastSearchJob: Job? = null
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s == null || s.length < 3) {
+                lastSearchJob?.cancel()
+                if (s == null || (s.isNotEmpty() && s.length < 3)) {
                     return
                 }
 
                 lastSearchJob?.cancel()
-                lifecycleScope.launch {
-                    delay(DEBOUNCE_DELAY)
-                    hideSearchResults()
-                    showProgressBar()
-                    viewModel.searchUsers(s.toString())
-                }
+                launchSearch(s.toString())
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -86,7 +82,18 @@ class SearchActivity : AppCompatActivity() {
             }
         }
 
+        lastSearchJob?.cancel()
+        launchSearch()
         setContentView(binding.root)
+    }
+
+    private fun launchSearch(query: String = "") {
+        lastSearchJob = lifecycleScope.launch {
+            delay(DEBOUNCE_DELAY)
+            hideSearchResults()
+            showProgressBar()
+            viewModel.searchUsers(query)
+        }
     }
 
     private fun hideProgressBar() {

@@ -33,6 +33,10 @@ class ConversationViewModel(private val messageRepository: MessageRepository): V
         messageRepository.listenConversationBetween(userUid, otherUserUid)
     }
 
+    fun stopListening() {
+        messageRepository.stopListening()
+    }
+
     companion object {
         fun getViewModelFactory(context: Context): ConversationViewModelFactory {
             return ConversationViewModelFactory(context.applicationContext)

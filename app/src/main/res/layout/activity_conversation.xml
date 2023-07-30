@@ -1,112 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.conversation.ConversationActivity">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/fill_space"
+        app:layout_constraintBottom_toTopOf="@+id/chatBox"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:context=".presentation.conversation.ConversationActivity">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsingToolbarLayout"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
-            android:background="@color/blue"
-            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                style="?attr/collapsingToolbarLayoutLargeStyle"
+                android:id="@+id/collapsingToolbarLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+                android:background="@color/blue">
 
-                <ImageView
-                    android:id="@+id/backButton"
-                    android:layout_width="@dimen/medium_space"
-                    android:layout_height="@dimen/medium_space"
-                    android:layout_gravity="top"
-                    android:contentDescription="@string/back_button"
-                    android:src="@drawable/baseline_arrow_back_ios_24"
-                    app:layout_constraintBottom_toTopOf="@+id/nickName"
-                    app:layout_constraintStart_toStartOf="@+id/nickName"
-                    app:tint="@color/white" />
-
-
-                <TextView
-                    android:id="@+id/nickName"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/small_space"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/larger_text"
-                    app:layout_constraintBottom_toBottomOf="@+id/profileIcon"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/profileIcon"
-                    tools:text="Account Name" />
+                    app:layout_collapseMode="none"
+                    android:elevation="@dimen/zero">
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/profileIcon"
-                    android:layout_width="@dimen/x_large_space"
-                    android:layout_height="@dimen/x_large_space"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="@dimen/medium_space"
-                    android:contentDescription="@string/login_screen_batman_icon"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/avatar_image_placeholder"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/occupation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/off_white"
-                    app:layout_constraintStart_toStartOf="@+id/nickName"
-                    app:layout_constraintTop_toBottomOf="@+id/nickName"
-                    tools:text="Occupation" />
+                        <ImageView
+                            android:id="@+id/backButton"
+                            android:layout_width="@dimen/medium_space"
+                            android:layout_height="@dimen/medium_space"
+                            android:layout_gravity="top"
+                            android:contentDescription="@string/back_button"
+                            android:src="@drawable/baseline_arrow_back_ios_24"
+                            app:layout_constraintBottom_toTopOf="@+id/nickName"
+                            app:layout_constraintStart_toStartOf="@+id/nickName"
+                            app:tint="@color/white" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <include
-                android:id="@+id/collapsedToolBar"
-                layout="@layout/chat_collapsed_top_bar"
-                android:visibility="invisible" />
+                        <TextView
+                            android:id="@+id/nickName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/small_space"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/larger_text"
+                            app:layout_constraintBottom_toBottomOf="@+id/profileIcon"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/profileIcon"
+                            tools:text="Account Name" />
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/profileIcon"
+                            android:layout_width="@dimen/x_large_space"
+                            android:layout_height="@dimen/x_large_space"
+                            android:layout_gravity="end"
+                            android:layout_marginEnd="@dimen/medium_space"
+                            android:contentDescription="@string/login_screen_batman_icon"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/avatar_image_placeholder"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+                        <TextView
+                            android:id="@+id/occupation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/off_white"
+                            app:layout_constraintStart_toStartOf="@+id/nickName"
+                            app:layout_constraintTop_toBottomOf="@+id/nickName"
+                            tools:text="Occupation" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.appbar.MaterialToolbar>
+
+                <include
+                    android:id="@+id/collapsedToolBar"
+                    layout="@layout/chat_collapsed_top_bar"
+                    android:visibility="invisible" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/fill_space"
-            android:background="?android:windowBackground"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@id/chatBox"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHeight_default="wrap"
-            app:layout_constraintVertical_bias="0.0" />
-
-
-        <include
-            android:id="@+id/chatBox"
-            layout="@layout/chat_box"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:background="?android:windowBackground"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+    <include
+        android:id="@+id/chatBox"
+        layout="@layout/chat_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

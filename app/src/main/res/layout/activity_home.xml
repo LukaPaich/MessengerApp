@@ -18,6 +18,7 @@
         android:layout_height="@dimen/bottom_app_bar_height"
         app:layout_anchor="@+id/viewPager"
         app:contentInsetStart="@dimen/zero"
+        android:backgroundTint="?android:windowBackground"
         app:hideOnScroll="true"
         app:layout_anchorGravity="bottom|center">
 

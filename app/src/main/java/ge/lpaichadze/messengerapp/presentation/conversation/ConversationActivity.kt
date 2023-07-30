@@ -2,7 +2,6 @@ package ge.lpaichadze.messengerapp.presentation.conversation
 
 import android.os.Build
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -10,7 +9,7 @@ import ge.lpaichadze.messengerapp.R
 import ge.lpaichadze.messengerapp.databinding.ActivityConversationBinding
 import ge.lpaichadze.messengerapp.persistence.model.User
 import java.time.Instant
-import kotlin.math.abs
+
 
 const val TO_USER_DATA = "TO_USER_DATA"
 
@@ -86,6 +85,7 @@ class ConversationActivity : AppCompatActivity() {
                     consumed = false
                 } else {
                     adapter.appendList(it)
+                    binding.recyclerView.scrollToPosition(adapter.itemCount - 1)
                 }
             }
         }
@@ -93,5 +93,10 @@ class ConversationActivity : AppCompatActivity() {
         fullRefresh = true
         viewModel.refreshMessages(curUserUid, userTo.uid!!)
         setContentView(binding.root)
+    }
+
+    override fun onDestroy() {
+        viewModel.stopListening()
+        super.onDestroy()
     }
 }

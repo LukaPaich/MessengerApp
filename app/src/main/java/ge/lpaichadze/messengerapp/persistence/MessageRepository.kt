@@ -25,6 +25,8 @@ interface MessageRepository {
 
     fun listenConversationBetween(userUid: String, otherUserUid: String)
 
+    fun stopListening()
+
     fun getCurrentUserUid(): String?
 
     fun sendMessage(fromUid: String, toUid: String, content: String, time: Instant)
@@ -49,6 +51,10 @@ class FireBaseMessageRepository(
 
     private val messages = db.getReference("Messages")
 
+    private var conversationListener: ChildEventListener? = null
+
+    private var listenerIdentifier: String? = null
+
     override fun getMessagesBetween(userUid: String, otherUserUid: String) {
         messages
             .child(generateIdentifier(userUid, otherUserUid))
@@ -65,21 +71,31 @@ class FireBaseMessageRepository(
     }
 
     override fun listenConversationBetween(userUid: String, otherUserUid: String) {
+        stopListening()
+        listenerIdentifier = generateIdentifier(userUid, otherUserUid)
+        conversationListener = object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                _liveMessageData.postValue(listOf(snapshot.getValue(Message::class.java)!!))
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+
+            override fun onCancelled(error: DatabaseError) {}
+        }
+
         messages
-            .child(generateIdentifier(userUid, otherUserUid))
-            .addChildEventListener(object : ChildEventListener {
-                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    _liveMessageData.postValue(listOf(snapshot.getValue(Message::class.java)!!))
-                }
+            .child(listenerIdentifier!!)
+            .addChildEventListener(conversationListener!!)
+    }
 
-                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
-
-                override fun onChildRemoved(snapshot: DataSnapshot) {}
-
-                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
-
-                override fun onCancelled(error: DatabaseError) {}
-            })
+    override fun stopListening() {
+        if (listenerIdentifier != null && conversationListener != null) {
+            messages.child(listenerIdentifier!!).removeEventListener(conversationListener!!)
+        }
     }
 
     override fun getCurrentUserUid(): String? {
