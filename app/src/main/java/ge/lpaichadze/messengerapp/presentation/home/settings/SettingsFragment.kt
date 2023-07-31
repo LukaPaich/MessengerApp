@@ -90,6 +90,7 @@ class SettingsFragment : BaseFragment() {
         viewModel.liveCurrentUserData.observe(this.viewLifecycleOwner) {
             if (it != null) {
                 hideProgressBar()
+                binding.settingsErrorText.visibility = View.GONE
                 currentUser = it
                 updateData(it)
                 switchInput(true)

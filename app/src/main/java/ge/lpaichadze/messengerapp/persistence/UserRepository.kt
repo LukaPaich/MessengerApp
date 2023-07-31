@@ -2,6 +2,7 @@ package ge.lpaichadze.messengerapp.persistence
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -43,6 +44,8 @@ interface UserRepository {
         query: String
     )
 }
+
+private const val TAG = "UserRepository"
 
 class FireBaseUserRepository(
     private val context: Context,
@@ -228,6 +231,7 @@ class FireBaseUserRepository(
     }
 
     private fun postError(exception: Exception, @StringRes defaultResId: Int) {
+        Log.e(TAG, "Exception occured:", exception)
         _liveErrorData.postValue(exception.message ?: context.getString(defaultResId))
     }
 
