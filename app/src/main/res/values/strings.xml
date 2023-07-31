@@ -33,4 +33,5 @@
     <string name="message">Message</string>
     <string name="send_button">Send button</string>
     <string name="no_active_conversations_found">No Active Conversations found</string>
+    <string name="nickname_not_in_range">Nickname length must be between 20 and 3 characters</string>
 </resources>

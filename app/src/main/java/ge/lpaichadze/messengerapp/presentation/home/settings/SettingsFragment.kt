@@ -72,6 +72,11 @@ class SettingsFragment : BaseFragment() {
                 return@setOnClickListener
             }
 
+            if (nickName.length < 3 || nickName.length > 20) {
+                binding.nickNameEditText.error = getString(R.string.nickname_not_in_range)
+                return@setOnClickListener
+            }
+
             switchInput(false)
             showProgressBar()
             // We know for sure here currentUser and currentUser email is not null

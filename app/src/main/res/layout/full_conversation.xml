@@ -21,26 +21,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/nickName"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/conversationContentLayout"
+        android:layout_width="@dimen/fill_space"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/medium_space"
         android:layout_marginTop="@dimen/x_small_space"
-        android:textSize="@dimen/large_text"
+        app:layout_constraintEnd_toStartOf="@+id/timestamp"
         app:layout_constraintStart_toEndOf="@+id/profileIcon"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="NickName" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/messageContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/grey"
-        android:layout_marginTop="@dimen/small_space"
-        app:layout_constraintStart_toStartOf="@+id/nickName"
-        app:layout_constraintTop_toBottomOf="@+id/nickName"
-        tools:text="Bla Bla Bla" />
+        <TextView
+            android:id="@+id/nickName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/large_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="NickName" />
+
+        <TextView
+            android:id="@+id/messageContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_space"
+            android:textColor="@color/grey"
+            app:layout_constraintStart_toStartOf="@+id/nickName"
+            app:layout_constraintTop_toBottomOf="@+id/nickName"
+            tools:text="Bla Bla Bla"
+            android:maxEms="20"
+            android:ellipsize="end" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <TextView
         android:id="@+id/timestamp"
@@ -48,8 +61,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/small_space"
         android:textColor="@color/grey"
-        app:layout_constraintBottom_toBottomOf="@+id/nickName"
+        app:layout_constraintBottom_toBottomOf="@+id/conversationContentLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/nickName"
+        app:layout_constraintTop_toTopOf="@+id/conversationContentLayout"
+        app:layout_constraintVertical_bias="@dimen/min_bias"
         tools:text="timestamp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

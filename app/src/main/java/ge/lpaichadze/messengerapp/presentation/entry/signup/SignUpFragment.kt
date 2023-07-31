@@ -45,9 +45,9 @@ class SignUpFragment : BaseFragment() {
         }
 
         binding.signUpButton.setOnClickListener {
-            val nickName = binding.nickNameEditText.text.toString()
+            val nickName = binding.nickNameEditText.text.toString().trim()
             val password = binding.passwordEditText.text.toString()
-            val occupation = binding.occupationEditText.text.toString()
+            val occupation = binding.occupationEditText.text.toString().trim()
 
             if (validateInput(nickName, password)) {
                 showProgressBar()
@@ -66,6 +66,9 @@ class SignUpFragment : BaseFragment() {
             success = false
         } else if (!nickName.isValidNickname()) {
             binding.nickNameEditText.error = getString(R.string.nickname_chars_invalid)
+            success = false
+        } else if (nickName.length < 3 || nickName.length > 20) {
+            binding.nickNameEditText.error = getString(R.string.nickname_not_in_range)
             success = false
         }
 

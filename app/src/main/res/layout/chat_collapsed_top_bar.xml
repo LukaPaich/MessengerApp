@@ -36,7 +36,9 @@
             app:layout_constraintStart_toStartOf="@+id/nickName"
             app:layout_constraintTop_toBottomOf="@+id/nickName"
             android:textColor="@color/off_white"
-            tools:text="occupation" />
+            tools:text="occupation"
+            android:maxEms="20"
+            android:ellipsize="end" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
