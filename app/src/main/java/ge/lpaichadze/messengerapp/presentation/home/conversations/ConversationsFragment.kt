@@ -1,5 +1,6 @@
 package ge.lpaichadze.messengerapp.presentation.home.conversations
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -10,10 +11,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import ge.lpaichadze.messengerapp.databinding.FragmentConversationsBinding
 import ge.lpaichadze.messengerapp.presentation.BaseFragment
 import ge.lpaichadze.messengerapp.presentation.conversation.ConversationActivity
 import ge.lpaichadze.messengerapp.presentation.conversation.TO_USER_DATA
+import ge.lpaichadze.messengerapp.presentation.home.OnScrollListener
 import ge.lpaichadze.messengerapp.utils.DEBOUNCE_DELAY
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -29,6 +32,8 @@ class ConversationsFragment : BaseFragment() {
 
     private lateinit var adapter: FullConversationAdapter
 
+    private var onScrollListener: OnScrollListener? = null
+
     private var lastSearchJob: Job? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -42,6 +47,14 @@ class ConversationsFragment : BaseFragment() {
             startActivity(intent)
         }
         binding.recyclerView.adapter = adapter
+
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                onScrollListener?.onScrolled(dx, dy)
+            }
+        })
 
         binding.searchTextField.addTextChangedListener(object : TextWatcher {
 
@@ -84,6 +97,21 @@ class ConversationsFragment : BaseFragment() {
         // Only show progressbar for first load
         showProgressBar()
         return binding.root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnScrollListener) {
+            onScrollListener = context
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+
+        if (context is OnScrollListener) {
+            onScrollListener = null
+        }
     }
 
     override fun onResume() {
