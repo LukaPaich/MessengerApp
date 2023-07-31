@@ -93,7 +93,7 @@ class ConversationActivity : AppCompatActivity() {
                     hideProgressBar()
                     adapter.messages = it.toMutableList()
                     fullRefresh = false
-                    consumed = true
+                    consumed = it.isNotEmpty()
                     binding.recyclerView.scrollToPosition(adapter.itemCount - 1)
                     viewModel.listenToMessages(curUserUid, userTo.uid!!)
                 } else if (consumed) {

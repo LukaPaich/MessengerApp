@@ -79,6 +79,6 @@
         android:layout_gravity="center"
         android:visibility="gone"
         tools:visibility="visible"
-        android:text="@string/no_users_found" />
+        android:text="@string/no_active_conversations_found" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
